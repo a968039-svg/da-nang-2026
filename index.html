@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 峴港・會安自主遊 APP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #2F2F2F;
+            --light: #F7F9FA;
+            --card-bg: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #FF8E53);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        header h1 { font-size: 1.4rem; margin-bottom: 5px; }
+        header p { font-size: 0.9rem; opacity: 0.9; }
+
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            background: white;
+            padding: 10px 5px;
+            sticky: top;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #EFEFEF;
+        }
+
+        .tab-btn {
+            flex: 0 0 auto;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: none;
+            background: #F0F2F5;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #65676B;
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+            padding: 15px;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #F0F2F5;
+            padding-bottom: 8px;
+        }
+
+        .time-block {
+            margin-bottom: 12px;
+        }
+
+        .time-tag {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .info-list i { color: #888; margin-top: 3px; }
+
+        .badge {
+            background: #FFEBEB;
+            color: var(--primary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        /* 導覽列 */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            border-top: 1px solid #EFEFEF;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #65676B;
+            font-size: 0.75rem;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>2026 峴港・會安自主遊</h1>
+        <p>7/5 (日) ~ 7/11 (六) • 7天6夜完整手冊</p>
+    </header>
+
+    <div id="page-schedule" class="main-page">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchDay(1)">7/5(日)</button>
+            <button class="tab-btn" onclick="switchDay(2)">7/6(一)</button>
+            <button class="tab-btn" onclick="switchDay(3)">7/7(二)</button>
+            <button class="tab-btn" onclick="switchDay(4)">7/8(三)</button>
+            <button class="tab-btn" onclick="switchDay(5)">7/9(四)</button>
+            <button class="tab-btn" onclick="switchDay(6)">7/10(五)</button>
+            <button class="tab-btn" onclick="switchDay(7)">7/11(六)</button>
+        </div>
+
+        <div id="day-1" class="content-section active">
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-hotel"></i> 今日住宿</div>
+                <p><strong>Sofiana My Khe Hotel</strong> <span class="badge">$3192 (含D2)</span></p>
+                <p style="font-size:0.85rem; color:#666; margin-top:4px;">🎁 免費生啤酒乙杯 & 20分鐘水療服務 (已預約機場接送)</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-clock"></i> 時間軸行程</div>
+                <div class="time-block">
+                    <span class="time-tag">16:30 下午</span>
+                    <p>抵達峴港機場，辦理入境與換匯，搭免費接送車前往飯店 Check-in。</p>
+                    <p style="font-size:0.85rem; color: #FF8E53;"><i class="fa-solid fa-money-bill"></i> 換匯點：機場先換部分，隨後前往韓市場旁 Tiem Vang Soan Ha</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">傍晚</span>
+                    <p>前往市區漢市場附近逛逛，或到美溪沙灘走走看夕陽。</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">晚上</span>
+                    <p>享用 Kkday All Seasons 海鮮自助餐廳 <span class="badge">$2208</span></p>
+                    <p>★ 21:00 前往龍橋欣賞噴火表演秀。</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="day-2" class="content-section">
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-hotel"></i> 今日住宿</div>
+                <p><strong>Sofiana My Khe Hotel</strong></p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-clock"></i> 巴拿山震撼一日遊</div>
+                <p style="margin-bottom: 10px; font-size:0.85rem; color:#666;"><i class="fa-solid fa-ticket"></i> Kkday門票+纜車+來回接駁 $3332 ｜ 過山車 $222</p>
+                <div class="time-block">
+                    <span class="time-tag">09:00</span>
+                    <p>搭乘接駁車出發前往巴拿山。</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">山上攻略順序</span>
+                    <p>佛手橋 ➔ 法國村 ➔ 愛情花園 ➔ 夢幻公園(室內) ➔ 太陽城堡 ➔ 月亮城堡 ➔ 熔岩路</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">15:30</span>
+                    <p><strong style="color:var(--primary);">注意！</strong>需提前一小時下山，搭乘 16:30 的車回程。</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">晚上</span>
+                    <p>回到市區，晚餐後前往 <strong>Tree Spa Da Nang</strong> 體驗越式洗頭/按摩放鬆。</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="day-3" class="content-section">
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-hotel"></i> 今日住宿</div>
+                <p><strong>峴港希爾頓花園酒店</strong> <span class="badge">$7031 (含D4)</span></p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-clock"></i> 市區包車半日遊</div>
+                <p style="margin-bottom: 10px; font-size:0.85rem; color:#666;"><i class="fa-solid fa-car"></i> KKday峴港市區包車5小時 $1070</p>
+                <div class="time-block">
+                    <span class="time-tag">09:00</span>
+                    <p>司機接送，先前往希爾頓花園酒店 Check in 放行李。</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">早上</span>
+                    <p>前往山茶半島【靈應寺】、Sơn Trà Marina 咖啡廳。</p>
+                    <p style="font-size:0.85rem; color:#666;">💡 山茶半島回程不好叫車，記得先跟司機約好回程時間。</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">下午</span>
+                    <p>回到市區拍攝粉紅教堂/藍教堂。視情況續造訪占婆雕刻博物館、APEC公園、壁畫村。最後前往 <strong>Go! (原Big C)</strong> 或 Lotte Mart 採買伴手禮。</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">晚上</span>
+                    <p>前往 <strong>Esco Beach Bar</strong>（週二 21:30 有秀表演）。</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="day-4" class="content-section">
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-hotel"></i> 今日住宿</div>
+                <p><strong>峴港希爾頓花園酒店</strong></p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-clock"></i> 慢活休閒日</div>
+                <div class="time-block">
+                    <span class="time-tag">早上</span>
+                    <p>美溪沙灘散步、享受飯店無邊際泳池（🏊‍♀️ 可帶泳衣）。</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">晚上</span>
+                    <p>預約 <strong>Tree Spa Da Nang</strong>（享免費接駁），放鬆按摩與享受在地酒吧。</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="day-5" class="content-section">
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-hotel"></i> 今日住宿</div>
+                <p><strong>會安古鎮精品飯店 (Hoianan Boutique Hotel)</strong> <span class="badge">$1815</span></p>
+                <p style="font-size:0.85rem; color:#666; margin-top:4px;">🚲 飯店有提供免費腳踏車借用</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-clock"></i> 移師古城會安</div>
+                <div class="time-block">
+                    <span class="time-tag">上午</span>
+                    <p>搭乘 Grab 前往會安（車程約1小時）。租飯店腳踏車騎往 <strong>An Bang Beach (安邦海灘)</strong>，沿途欣賞鄉村稻田風情。</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">16:00</span>
+                    <p>預約 <strong>Sweet Hoi An</strong> 進行奧黛旅拍體驗。</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">晚上</span>
+                    <p>晚餐享用會安三寶（高樓麵、雞飯、白玫瑰）。</p>
+                    <p style="font-size:0.85rem; color:var(--primary); margin-top:4px;"><i class="fa-solid fa-ticket"></i> 20:00 - 21:00 觀賞【印象會安秀】(於KKday購買)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="day-6" class="content-section">
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-hotel"></i> 今日住宿</div>
+                <p><strong>BlueSun Danang Beach Hotel</strong> <span class="badge">$2469</span></p>
+                <p style="font-size:0.85rem; color:#666; margin-top:4px;">🎁 飯店提供預約機場免費送機服務</p>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-clock"></i> 竹籃船體驗與返回峴港</div>
+                <div class="time-block">
+                    <span class="time-tag">10:00</span>
+                    <p>前往迦南島 (Cam Thanh) 體驗瘋狂刺激的<strong>竹籃船 (簸箕船)</strong>。<span class="badge">Kkday門票:$1140</span></p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">下午</span>
+                    <p>漫步會安古城探訪特色咖啡廳。隨後搭乘 Grab 返回峴港飯店。</p>
+                    <p style="font-size:0.85rem; color:#4ECDC4;">💡 14:00 - 17:00 享用飯店下午茶時間</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="day-7" class="content-section">
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-plane-departure"></i> 準備返台</div>
+                <div class="time-block">
+                    <span class="time-tag">06:30</span>
+                    <p>出發前往峴港機場報到（可善用 BlueSun 飯店的免費送機）。</p>
+                </div>
+                <div class="time-block">
+                    <span class="time-tag">10:00</span>
+                    <p>搭乘直飛飛機返回溫暖的家✈️</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-spots" class="main-page" style="display:none; padding:15px;">
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-utensils"></i> 峴港美食推薦</div>
+            <ul class="info-list">
+                <li><i class="fa-solid fa-check"></i> <strong>正餐：</strong> An Thoi Restaurant、Madame Ian、Com nha linh</li>
+                <li><i class="fa-solid fa-check"></i> <strong>河粉：</strong> Pho Hong</li>
+                <li><i class="fa-solid fa-check"></i> <strong>法棍：</strong> Happy bread MI AA</li>
+                <li><i class="fa-solid fa-check"></i> <strong>甜點：</strong> Che Lien</li>
+                <li><i class="fa-solid fa-check"></i> <strong>咖啡廳：</strong> Cửa Ngõ Café (極美摩洛哥風)</li>
+                <li><i class="fa-solid fa-check"></i> <strong>娛樂酒吧：</strong> Esco Beach Bar (二、五、六 21:30 有秀)</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-map-location-dot"></i> 會安美食與購物</div>
+            <ul class="info-list">
+                <li><i class="fa-solid fa-star"></i> <strong>餐廳：</strong> Morning Glory Original (會安三寶)</li>
+                <li><i class="fa-solid fa-coffee"></i> <strong>咖啡廳：</strong> Faifo Coffee (俯瞰古城頂樓)、Cong Caphe (椰子冰沙咖啡)、Uncle huan coffee</li>
+                <li><i class="fa-solid fa-bread-slice"></i> <strong>法棍：</strong> Bánh Mì Phượng、Madam Khanh</li>
+                <li><i class="fa-solid fa-scissors"></i> <strong>訂做鞋/服飾：</strong> BeBi (訂做鞋)、Sweet Hoi An (奧黛)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="page-finance" class="main-page" style="display:none; padding:15px;">
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-wallet"></i> 已知消費統計</div>
+            <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">7/5~7/7 住宿 (Sofiana)</td><td align="right">$3,192</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">7/7~7/9 住宿 (希爾頓)</td><td align="right">$7,031</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">7/9~7/10 住宿 (Hoianan)</td><td align="right">$1,815</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">7/10~7/11 住宿 (BlueSun)</td><td align="right">$2,469</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">Kkday 海鮮自助餐</td><td align="right">$2,208</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">Kkday 巴拿山門票接駁</td><td align="right">$3,332</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">Kkday 巴拿山過山車</td><td align="right">$222</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">KKday 峴港市區包車5hr</td><td align="right">$1,070</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">Kkday 竹籃船門票</td><td align="right">$1,140</td></tr>
+                <tr style="font-weight:bold; color:var(--primary);"><td style="padding:10px 0 0 0;">預估總花費 (台幣)</td><td align="right" style="padding:10px 0 0 0;">$22,479</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <button class="nav-item active" onclick="switchPage('schedule', this)">
+            <i class="fa-solid fa-calendar-days"></i>行程
+        </button>
+        <button class="nav-item" onclick="switchPage('spots', this)">
+            <i class="fa-solid fa-utensils"></i>美食景點
+        </button>
+        <button class="nav-item" onclick="switchPage('finance', this)">
+            <i class="fa-solid fa-calculator"></i>預算
+        </button>
+    </div>
+
+    <script>
+        function switchDay(dayNum) {
+            // 切換行程天數的 Tab
+            const buttons = document.querySelectorAll('.tab-btn');
+            const sections = document.querySelectorAll('.content-section');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            sections.forEach(sec => sec.classList.remove('active'));
+            
+            buttons[dayNum - 1].classList.add('active');
+            document.getElementById(`day-${dayNum}`).classList.add('active');
+            
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function switchPage(pageId, element) {
+            // 切換主分頁 (行程/美食/財務)
+            const pages = document.querySelectorAll('.main-page');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            pages.forEach(p => p.style.display = 'none');
+            navItems.forEach(n => n.classList.remove('active'));
+            
+            document.getElementById(`page-${pageId}`).style.display = 'block';
+            element.classList.add('active');
+            
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
